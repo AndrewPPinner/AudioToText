@@ -37,17 +37,17 @@
 			<artifactId>AudioReader</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.0.0</version>
-        </dependency>
 		<dependency>
 			<groupId>fr.opensagres</groupId>
 			<artifactId>org.apache.poi.xwpf.converter</artifactId>
 			<version>0.9.1</version>
 		</dependency>
-	</dependencies>
+   		<dependency>
+     		<groupId>org.apache.poi</groupId>
+     		<artifactId>poi-scratchpad</artifactId>
+     		<version>3.5-beta1</version>
+   		</dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
