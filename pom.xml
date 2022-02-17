@@ -47,7 +47,12 @@
      		<artifactId>poi-scratchpad</artifactId>
      		<version>3.5-beta1</version>
    		</dependency>
- </dependencies>
+		<dependency>
+			<groupId>com.microsoft.playwright</groupId>
+			<artifactId>playwright</artifactId>
+			<version>1.18.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

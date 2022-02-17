@@ -13,6 +13,10 @@ public class AudioText {
 
 
     public AudioText() {
+
+        //get doc file from server downloads using file location and date.docx
+
+
         File file = new File("C:/Users/Student/Downloads/Document.docx");
 
         try(FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
