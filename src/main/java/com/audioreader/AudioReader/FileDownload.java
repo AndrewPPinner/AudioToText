@@ -40,7 +40,7 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=password]", "password123!");
+            page.type("[type=password]", "Password123");
             page.click("#idSIButton9");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
