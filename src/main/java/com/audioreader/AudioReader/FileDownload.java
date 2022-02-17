@@ -57,8 +57,6 @@ public class FileDownload {
             Download download  = page.waitForDownload(() -> page.click("[name=Download]"));
             Path path = Paths.get("C:/Users/Student/Downloads/" + formatDateTime + ".docx");
             download.saveAs(path);
-            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("screenshot.png")).setFullPage(true));
-            System.out.println("Complete");
             AudioText audioText = new AudioText(path.toString());
 
         }
