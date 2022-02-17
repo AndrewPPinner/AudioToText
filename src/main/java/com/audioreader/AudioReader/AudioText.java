@@ -6,18 +6,18 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AudioText {
     private int counter;
 
 
-    public AudioText() {
-
-        //get doc file from server downloads using file location and date.docx
+    public AudioText(String fileName) {
 
 
-        File file = new File("C:/Users/Student/Downloads/Document (3).docx");
+        File file = new File(fileName);
 
         try(FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
             XWPFDocument document = new XWPFDocument(FileInputStream);
@@ -34,6 +34,7 @@ public class AudioText {
             }
 
             System.out.println(counter);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

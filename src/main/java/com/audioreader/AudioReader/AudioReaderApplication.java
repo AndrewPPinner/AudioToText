@@ -12,8 +12,7 @@ public class AudioReaderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AudioReaderApplication.class, args);
-		AudioText audioText = new AudioText();
-//		FileDownload fileDownload = new FileDownload();
+		FileDownload fileDownload = new FileDownload();
 
 
 	}

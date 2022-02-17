@@ -1,8 +1,13 @@
 package com.audioreader.AudioReader;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.Download;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.nio.file.Paths;
 
@@ -16,10 +21,15 @@ public class FileDownload {
     }
 
     private void download() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM_dd_yyyy");
+        String formatDateTime = now.format(format);
+
+
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch();
             Page page = browser.newPage();
-            page.navigate("https://onedrive.live.com/edit.aspx?resid=742E4615ADB490E1!758&ithint=file%2cdocx");
+            page.navigate("https://onedrive.live.com/?id=root&cid=742E4615ADB490E1&qt=mru");
             page.waitForSelector("[type=email]");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
@@ -30,7 +40,7 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=password]", "Password123");
+            page.type("[type=password]", "password123!");
             page.click("#idSIButton9");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
@@ -39,8 +49,17 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, -100);
             }
+            page.keyboard().press("Control+A");
+            page.click("[name=Rename]");
+            page.type("#ItemNameEditor-input", formatDateTime);
+            page.keyboard().press("Enter");
+            // wait for download to start
+            Download download  = page.waitForDownload(() -> page.click("[name=Download]"));
+            Path path = Paths.get("C:/Users/Student/Downloads/" + formatDateTime + ".docx");
+            download.saveAs(path);
             page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("screenshot.png")).setFullPage(true));
             System.out.println("Complete");
+            AudioText audioText = new AudioText(path.toString());
 
         }
     }
