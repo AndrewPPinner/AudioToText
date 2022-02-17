@@ -24,13 +24,24 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=email]", "myEmail@emial.com");
+            page.type("[type=email]", "email@email.com");
             page.click("#idSIButton9");
-            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("screenshot.png")).setFullPage(true));
             page.waitForSelector("[placeholder=Password]");
-            page.click("[type=password]");
-            page.waitForSelector("[type=password]");
-            page.fill("[type=password]", "Password123");
+            for (int i = 0; i < 500; i++) {
+                page.mouse().wheel(0, 100);
+            }
+            page.type("[type=password]", "Password123");
+            page.click("#idSIButton9");
+            for (int i = 0; i < 500; i++) {
+                page.mouse().wheel(0, 100);
+            }
+            page.click("[type=button]");
+            for (int i = 0; i < 500; i++) {
+                page.mouse().wheel(0, -100);
+            }
+            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("screenshot.png")).setFullPage(true));
+            System.out.println("Complete");
+
         }
     }
 
