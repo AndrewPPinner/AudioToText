@@ -17,18 +17,22 @@ public class AudioText {
         //get doc file from server downloads using file location and date.docx
 
 
-        File file = new File("C:/Users/Student/Downloads/Document.docx");
+        File file = new File("C:/Users/Student/Downloads/Document (3).docx");
 
         try(FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
             XWPFDocument document = new XWPFDocument(FileInputStream);
             List<XWPFParagraph> paragraphs = document.getParagraphs();
+            for (int i = 0; i < paragraphs.size(); i++) {
+                String[] splitParagraph = paragraphs.get(i).getText().toLowerCase().split(" ");
 
-            for (XWPFParagraph para : paragraphs) {
-                String paragraphText = para.getText().toLowerCase();
-                if(paragraphText.contains("right")) {
-                    counter++;
+                for (String para : splitParagraph) {
+                    if(para.contains("key")) {
+                        counter++;
+                    }
                 }
+
             }
+
             System.out.println(counter);
         } catch (IOException e) {
             e.printStackTrace();
