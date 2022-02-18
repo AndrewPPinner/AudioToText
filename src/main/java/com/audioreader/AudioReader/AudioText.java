@@ -26,7 +26,7 @@ public class AudioText {
                 String[] splitParagraph = paragraphs.get(i).getText().toLowerCase().split(" ");
 
                 for (String para : splitParagraph) {
-                    if(para.contains("key")) {
+                    if(para.contains("select")) {
                         counter++;
                     }
                 }

@@ -34,13 +34,13 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=email]", "email@email.com");
+            page.type("[type=email]", "andppinner@gmail.com");
             page.click("#idSIButton9");
             page.waitForSelector("[placeholder=Password]");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=password]", "Password123");
+            page.type("[type=password]", "1992jza70R!");
             page.click("#idSIButton9");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
@@ -55,7 +55,7 @@ public class FileDownload {
             page.keyboard().press("Enter");
             // wait for download to start
             Download download  = page.waitForDownload(() -> page.click("[name=Download]"));
-            Path path = Paths.get("C:/Users/Student/Downloads/" + formatDateTime + ".docx");
+            Path path = Paths.get("docxFiles/" + formatDateTime + ".docx");
             download.saveAs(path);
             AudioText audioText = new AudioText(path.toString());
 
