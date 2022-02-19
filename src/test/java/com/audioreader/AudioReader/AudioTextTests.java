@@ -20,13 +20,13 @@ public class AudioTextTests {
     }
 
     @Test
-    public void printTopWords_sorts_hashmap_by_value_and_prints_top_words() {
+    public void topWords_sorts_hashmap_by_value_and_prints_top_words() {
 
         int numberOfWordsToPrint = 50;
         AudioText audioText = new AudioText("docxFiles/02_18_2022.docx");
         Map<String, Integer> countedWordMap = audioText.countAllWords();
 
-        audioText.printTopWords(countedWordMap,numberOfWordsToPrint);
+        audioText.topWords(countedWordMap,numberOfWordsToPrint);
 
     }
 

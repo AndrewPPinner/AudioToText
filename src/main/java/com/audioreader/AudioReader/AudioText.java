@@ -15,6 +15,7 @@ public class AudioText {
     private int counter;
     private String fileName;
     private File file;
+    private List<Object> topWordsList = new ArrayList<>();
 
 
     public AudioText(String fileName) {
@@ -86,16 +87,25 @@ public class AudioText {
 
 
 
-    public void printTopWords(Map<String, Integer> countedWords, int numToPrint){
+    public void topWords(Map<String, Integer> countedWords, int numToPrint){
+
         //sort Map<String word, Integer count> into a LinkedHashMap
         Map<String, Integer> sortedCountedWords = countedWords.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2)-> e1, LinkedHashMap::new));
-
         //use set and iterator to print values from linkedHashMap in order in a fori stopping at numToPrint
         Set entrySet = sortedCountedWords.entrySet();
         Iterator it = entrySet.iterator();
         for (int i = 0; i < numToPrint; i++) {
-            System.out.println((i+1) + "): " + it.next());
+            if (it.next().equals("the") || it.next().equals("you") || it.next().equals("and") || it.next().equals("that") || it.next().equals("this") || it.next().equals("have") || it.next().equals("going") || it.next().equals("i'm") || it.next().equals("it's") || it.next().equals("what")) {
+                continue;
+            }
+            Object next = it.next();
+            System.out.println((i+1) + "): " + next);
+            topWordsList.add(next);
         }
     }
 
+
+    public List<Object> getTopWordsList() {
+        return topWordsList;
+    }
 }

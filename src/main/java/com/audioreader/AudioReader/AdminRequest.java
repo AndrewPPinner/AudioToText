@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class AdminPanel {
+public class AdminRequest {
     private List<Winners> winnerList;
 
 
