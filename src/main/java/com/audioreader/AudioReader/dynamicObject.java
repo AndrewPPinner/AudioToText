@@ -10,9 +10,8 @@ public class dynamicObject {
 
     dynamicObject(boolean valid) {
         this.valid = valid;
-        if(valid) {
-            generateUrl();
-        }
+        generateUrl();
+
     }
 
     private void generateUrl() {
@@ -50,7 +49,10 @@ public class dynamicObject {
     }
 
     public String getUrl() {
-        return url;
+        if(valid) {
+            return url;
+        }
+        return "";
     }
 
     public boolean isValid() {

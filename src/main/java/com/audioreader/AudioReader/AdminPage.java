@@ -32,10 +32,13 @@ public class AdminPage {
             return "There has been an error. Please try again later";
         }
 
+        System.out.println(url);
+        System.out.println(key);
         //if the secure key and url are same allow user to go to admin page
         if(key.equals(url)) {
             return "adminPage/admin_page.html";
+        } else {
+            return "failed_login.html";
         }
-        return "failed_login.html";
     }
 }

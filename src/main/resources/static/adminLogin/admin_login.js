@@ -1,8 +1,8 @@
 const app = Vue.createApp ({
     data() {
         return {
-        login: null,
-        password: null
+        login: "",
+        password: ""
         }
     },
     methods: {
