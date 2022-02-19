@@ -48,7 +48,6 @@ public class AudioText {
     //generate a map of all words (key) and how many times (value) they appear in the file
     //ignores words 2 characters or less
     public Map<String, Integer> countAllWords() {
-        File file = new File(fileName);
         Map<String, Integer> wordTallies = new HashMap<>();
 
         try (FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
