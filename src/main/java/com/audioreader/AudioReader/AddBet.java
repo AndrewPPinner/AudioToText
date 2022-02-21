@@ -18,7 +18,7 @@ public class AddBet {
 
 
 
-    @GetMapping("/user_betting")
+    @GetMapping("/daily_bet")
     public String addBet(@RequestParam List<String> parameters) {
         //domain.com/user_betting?parameters=<username>,<bet>
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";

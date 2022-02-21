@@ -58,6 +58,7 @@ public class FileDownload {
             Path path = Paths.get("docxFiles/" + formatDateTime + ".docx");
             download.saveAs(path);
             AudioText audioText = new AudioText(path.toString());
+            System.out.println("Download Complete");
 
         }
     }

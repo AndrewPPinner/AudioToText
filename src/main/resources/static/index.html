@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-for="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/vue@3.0.2"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-<body class="p-3 mb-2 bg-secondary text-white">
+<body id="app" class="p-3 mb-2 bg-secondary text-white">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="https://localhost:7070">Welcome</a>
@@ -33,5 +33,22 @@
         </div>
     </div>
 </nav>
+
+<div>
+    <h2>Today's Winners: </h2>
+    <br>
+    <div v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{ winner.name }}</div>
+<!--https://avatars.dicebear.com/api/adventurer-neutral/:seed.svg-->
+        <img v-if="winner.profilePicture != null" class="card-img-top" src="winner.profilePicture" alt="Card image cap">
+        <img v-if="winner.profilePicture == null" class="card-img-top" :src="'https://avatars.dicebear.com/api/adventurer-neutral/:' + winner.name + '.svg'" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{'Winning Bet: ' + winner.bet }}</h5>
+            <p class="card-text">{{winner.name + ' has won ' }} {{winner.times_won + ' times'}}</p>
+        </div>
+    </div>
+</div>
+<script src="index.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>

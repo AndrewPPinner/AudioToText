@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class AdminRequest {
+public class WinnerRequest {
     private List<Winners> winnerList;
 
 
 
 
 
-    @GetMapping("/admin_panel/daily")
+    @GetMapping("/daily_winner")
     public List<Winners> dailyWinners(@RequestParam(value = "id") String id) {
         winnerList = new ArrayList<>();
         if(id.equals("123456789")) {
@@ -35,9 +35,9 @@ public class AdminRequest {
 
                 Statement statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("SELECT full_name, daily_bet FROM users WHERE daily_bet = (SELECT winning_bet FROM daily_winner WHERE date = '" + formatDateTime + "')");
+                ResultSet resultSet = statement.executeQuery("SELECT full_name, daily_bet, profile_picture FROM users WHERE daily_bet = (SELECT winning_bet FROM daily_winner WHERE date = '" + formatDateTime + "')");
                 while (resultSet.next()) {
-                    winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("daily_bet")));
+                    winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("daily_bet"), resultSet.getString("profile_picture")));
                 }
 
 
@@ -47,7 +47,7 @@ public class AdminRequest {
             }
             return winnerList;
         }
-        winnerList.add(new Winners("You are not authorized", 404));
+        winnerList.add(new Winners("You are not authorized", 404, null));
         return winnerList;
 
 
