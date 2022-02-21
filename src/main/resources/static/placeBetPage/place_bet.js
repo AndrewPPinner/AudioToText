@@ -3,7 +3,7 @@ const app = Vue.createApp ({
         return {
         fullName: "",
         bet: null,
-        wordOfTheDay: "",
+        wordOfTheDay: null,
         placed: null
         }
     },
