@@ -26,7 +26,7 @@ public class AddBet {
         String dbPass = "postgres1";
         try {
             Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            String sqlStatement = "INSERT INTO users (full_name, bet) VALUES (?,?)";
+            String sqlStatement = "INSERT INTO users (full_name, daily_bet) VALUES (?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, parameters.get(0));
             preparedStatement.setInt(2, Integer.parseInt(parameters.get(1)));
