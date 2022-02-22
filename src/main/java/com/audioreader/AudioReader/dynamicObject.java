@@ -32,8 +32,8 @@ public class dynamicObject {
 
         //passing the randomized endpoint to the db
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = "postgres";
-        String dbPass = "postgres1";
+        String dbUser = System.getenv("dbUser");
+        String dbPass = System.getenv("dbPass");
         try {
             Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
             String sqlStatement = "UPDATE password SET pass = ?";

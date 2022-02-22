@@ -34,13 +34,13 @@ public class FileDownload {
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=email]", "andppinner@gmail.com");
+            page.type("[type=email]", System.getenv("wordEmail"));
             page.click("#idSIButton9");
             page.waitForSelector("[placeholder=Password]");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);
             }
-            page.type("[type=password]", "1992jza70R!");
+            page.type("[type=password]", System.getenv("wordPass"));
             page.click("#idSIButton9");
             for (int i = 0; i < 500; i++) {
                 page.mouse().wheel(0, 100);

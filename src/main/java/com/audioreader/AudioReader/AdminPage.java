@@ -15,8 +15,8 @@ public class AdminPage {
         //check if secure key from front-end is same as the one on the date base
 
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = "postgres";
-        String dbPass = "postgres1";
+        String dbUser = System.getenv("dbUser");
+        String dbPass = System.getenv("dbPass");
         try {
             Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
             Statement statement = connection.createStatement();
