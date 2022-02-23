@@ -1,4 +1,4 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.GetRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,10 +1,7 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.PostRequest;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.util.List;
@@ -17,9 +14,9 @@ public class AddBet {
 
 
 
-
-    @GetMapping("/daily_bet")
-    public String addBet(@RequestParam List<String> parameters) {
+//This should be a post request
+    @PostMapping("/daily_bet")
+    public String addBet(@RequestBody List<String> parameters) {
         //domain.com/user_betting?parameters=<username>,<bet>
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
         String dbUser = System.getenv("dbUser");

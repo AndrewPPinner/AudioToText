@@ -7,8 +7,9 @@ const app = Vue.createApp ({
     },
     methods: {
            redirect(login,password) {
+           const loginCreds = [login, password]
                axios
-               .get("http://localhost:7070/login_creds?login=" + login + "&password=" + password)
+               .post("http://localhost:7070/login_creds", loginCreds)
                .then(response => {
                console.log(response)
                if(response.data.valid = true) {

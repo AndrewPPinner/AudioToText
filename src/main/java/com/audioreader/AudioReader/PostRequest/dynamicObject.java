@@ -1,4 +1,4 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.PostRequest;
 
 import java.nio.charset.Charset;
 import java.sql.*;

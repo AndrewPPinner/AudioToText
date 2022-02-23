@@ -9,7 +9,8 @@ const app = Vue.createApp ({
     },
     methods: {
         placeBet(fullName, bet) {
-            axios("http://localhost:7070/daily_bet?parameters=" + fullName + "," + bet)
+            const postArray = [fullName, bet]
+            axios.post("http://localhost:7070/daily_bet", postArray)
             .then(res => (this.placed = res.data))
             .catch(e => (console.log(e)))
 

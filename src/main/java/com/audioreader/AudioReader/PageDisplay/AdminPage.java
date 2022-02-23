@@ -1,4 +1,4 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.PageDisplay;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,7 @@ import java.sql.*;
 @Controller
 public class AdminPage {
     private String url;
+
 
     @RequestMapping("/admin_page")
     public String adminPage(@RequestParam(value = "key") String key){

@@ -1,4 +1,4 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.TextReader;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;

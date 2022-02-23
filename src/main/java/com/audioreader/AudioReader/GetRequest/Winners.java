@@ -1,4 +1,4 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.GetRequest;
 
 public class Winners {
     private String name;

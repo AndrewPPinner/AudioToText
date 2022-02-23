@@ -1,5 +1,6 @@
-package com.audioreader.AudioReader;
+package com.audioreader.AudioReader.TextReader;
 
+import com.audioreader.AudioReader.TextReader.AudioText;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Download;
 import com.microsoft.playwright.Page;
