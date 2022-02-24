@@ -125,13 +125,16 @@ public class AudioText {
         //use set and iterator to print values from linkedHashMap in order in a fori stopping at numToPrint
         Set entrySet = sortedCountedWords.entrySet();
         Iterator it = entrySet.iterator();
-        for (int i = 0; i < numToPrint; i++) {
-            if (it.next().equals("the") || it.next().equals("you") || it.next().equals("and") || it.next().equals("that") || it.next().equals("this") || it.next().equals("have") || it.next().equals("going") || it.next().equals("i'm") || it.next().equals("it's") || it.next().equals("what")) {
-                continue;
+        int i = 0;
+        while (i < numToPrint) {
+            String word = it.next().toString();
+            String[] wordSplit = word.split("=");
+            if (!(wordSplit[0].equals("the") || wordSplit[0].equals("you") || wordSplit[0].equals("and") || wordSplit[0].equals("that") || wordSplit[0].equals("this") || wordSplit[0].equals("have") || wordSplit[0].equals("going") || wordSplit[0].equals("i'm") || wordSplit[0].equals("it's") || wordSplit[0].equals("what"))) {
+                System.out.println((i + 1) + "): " + word);
+                topWordsList.add(word);
+                i++;
             }
-            Object next = it.next();
-            System.out.println((i + 1) + "): " + next);
-            topWordsList.add(next);
+
         }
     }
 
