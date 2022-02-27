@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <script src="https://unpkg.com/vue@3.0.2"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body id="app" class="p-3 mb-2 bg-secondary text-white">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,16 +27,17 @@
                     <a class="nav-link" href="http://localhost:7070/betting">Place a Bet</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:7070/winners">Recent Winners</a>
+                    <a class="nav-link" id="today-winner-link" href="http://localhost:7070/winners">Recent Winners</a>
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
 
 <div>
-    <h2>Today's Winners: </h2>
+    <h2 id="today-winner-title">Today's Winners: </h2>
+    <h3 v-if="winners.length === 0" id="no-winner" style="color:rgb(245, 121, 105)">No winners yet!</h2>
+    <h3 id="winning-count" style="color:rgb(113, 218, 52)">Winning count TBD</h2>
     <br>
     <div v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">{{ winner.name }}</div>

@@ -7,18 +7,6 @@ CREATE DATABASE "BettingDB"
     LC_CTYPE = 'English_United States.1252'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
-	
-
-
-CREATE SCHEMA public
-    AUTHORIZATION postgres;
-
-COMMENT ON SCHEMA public
-    IS 'standard public schema';
-
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-GRANT ALL ON SCHEMA public TO postgres;
 
 --create daily_winner table
 CREATE TABLE IF NOT EXISTS public.daily_winner
@@ -49,11 +37,17 @@ CREATE TABLE IF NOT EXISTS public.users
 (
     user_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 1000000 CACHE 1 ),
     full_name text COLLATE pg_catalog."default" NOT NULL,
-    daily_bet integer DEFAULT 0,
-    weekly_bet integer DEFAULT 0,
-    cohort_bet integer DEFAULT 0,
     profile_picture text COLLATE pg_catalog."default",
     CONSTRAINT "Users_pkey" PRIMARY KEY (user_id)
+)
+
+--create user_daily_bets
+CREATE TABLE IF NOT EXISTS public.user_daily_bets
+(
+    user_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 1000000 CACHE 1 ),
+    bet integer DEFAULT 0,
+    date date NOT NULL
+    CONSTRAINT fk_user_daily_bets_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 )
 
 TABLESPACE pg_default;
