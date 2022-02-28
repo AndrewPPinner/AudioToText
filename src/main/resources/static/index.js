@@ -8,8 +8,13 @@ const app = Vue.createApp ({
     mounted() {
         axios("http://localhost:7070/daily_winner?id=123456789")
             .then(res => {
-            this.winners = res.data,
-            winningCount = res.data[0].winningBet,
+            if(res.data[0].name != null){
+            this.winners = res.data;
+            winningCount = res.data[0].winningBet;
+            console.log(winningCount)
+            $("#winning-count").text("The correct count was " + winningCount);
+            }
+            winningCount = res.data[0].winningBet;
             console.log(winningCount)
             $("#winning-count").text("The correct count was " + winningCount);
             })

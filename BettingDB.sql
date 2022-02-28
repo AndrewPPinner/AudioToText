@@ -8,6 +8,12 @@ CREATE DATABASE "BettingDB"
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
+DROP TABlE IF EXISTs public.daily_winner;
+DROP TABlE IF EXISTs public.password;
+DROP TABlE IF EXISTs public.users;
+DROP TABlE IF EXISTs public.user_daily_bets;
+
+
 --create daily_winner table
 CREATE TABLE IF NOT EXISTS public.daily_winner
 (
@@ -31,6 +37,9 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.password
     OWNER to postgres;
+
+INSERT INTO password (pass)
+VALUES ('xxxxxxxxx');
 	
 -- create users table
 CREATE TABLE IF NOT EXISTS public.users
@@ -38,6 +47,7 @@ CREATE TABLE IF NOT EXISTS public.users
     user_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 1000000 CACHE 1 ),
     full_name text COLLATE pg_catalog."default" NOT NULL,
     profile_picture text COLLATE pg_catalog."default",
+    times_won integer NOT NULL DEFAULT 0,
     CONSTRAINT "Users_pkey" PRIMARY KEY (user_id)
 )
 
@@ -46,7 +56,7 @@ CREATE TABLE IF NOT EXISTS public.user_daily_bets
 (
     user_id integer NOT NULL,
     bet integer DEFAULT 0,
-    date date NOT NULL
+    date date NOT NULL,
     CONSTRAINT fk_user_daily_bets_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 )
 

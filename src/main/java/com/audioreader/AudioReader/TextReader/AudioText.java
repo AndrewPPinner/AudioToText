@@ -3,6 +3,8 @@ package com.audioreader.AudioReader.TextReader;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,11 +14,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class AudioText {
     private int counter;
     private String fileName;
     private File file;
-    private List<Object> topWordsList = new ArrayList<>();
+    private List<String> topWordsList = new ArrayList<>();
 
 
     public AudioText(String fileName) {
@@ -129,8 +132,8 @@ public class AudioText {
         while (i < numToPrint) {
             String word = it.next().toString();
             String[] wordSplit = word.split("=");
-            if (!(wordSplit[0].equals("the") || wordSplit[0].equals("you") || wordSplit[0].equals("and") || wordSplit[0].equals("that") || wordSplit[0].equals("this") || wordSplit[0].equals("have") || wordSplit[0].equals("going") || wordSplit[0].equals("i'm") || wordSplit[0].equals("it's") || wordSplit[0].equals("what"))) {
-                System.out.println((i + 1) + "): " + word);
+            if (!(wordSplit[0].equals("the") || wordSplit[0].equals("you") || wordSplit[0].equals("and") || wordSplit[0].equals("that") || wordSplit[0].equals("this") || wordSplit[0].equals("have") || wordSplit[0].equals("going") || wordSplit[0].equals("i'm") || wordSplit[0].equals("it's") || wordSplit[0].equals("what") || wordSplit[0].equals("but"))) {
+//                System.out.println((i + 1) + "): " + word);
                 topWordsList.add(word);
                 i++;
             }
@@ -139,10 +142,20 @@ public class AudioText {
     }
 
 
-    public List<Object> getTopWordsList() {
+    public List<String> getTopWordsList() {
         for (Object obj : topWordsList) {
             obj.toString();
         }
         return topWordsList;
     }
+
+//ties all functions together to get the top word and how many times it is said and returns a new Top word object
+    public TopWord getTopWord() {
+        topWords(countAllWords(), 50);
+        List<String> listOfWords = getTopWordsList();
+        String[] word = listOfWords.get(0).split("=");
+        int count = Integer.parseInt(word[1]);
+        return new TopWord(word[0], count);
+    }
+
 }

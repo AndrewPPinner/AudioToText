@@ -47,16 +47,22 @@ public class WinnerRequest {
                 }
 
                 //retrieve users with bets matching the winning bet for given date
-                sqlStatement = "SELECT full_name, profile_picture, bet FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet = ? AND date = ?;";
+                sqlStatement = "SELECT full_name, profile_picture, bet, times_won FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet = ? AND date = ?;";
                 preparedStatement = connection.prepareStatement(sqlStatement);
                 preparedStatement.setInt(1, winningBet);
                 preparedStatement.setDate(2, date);
                 resultSet = preparedStatement.executeQuery();
 
                 //add winners to list of winners
-                while (resultSet.next()) {
-                    winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("bet"), winningBet, resultSet.getString("profile_picture")));
+                if(resultSet.next()) {
+                    do{
+                        winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("bet"), winningBet, resultSet.getString("profile_picture"), resultSet.getInt("times_won")));
+                    } while (resultSet.next());
+                } else if(winningBet == -99){
+                } else{
+                    winnerList.add(new Winners(null, null, winningBet, null, null));
                 }
+
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -65,7 +71,7 @@ public class WinnerRequest {
         }
 
         //return bad list without proper id in request
-        winnerList.add(new Winners("You are not authorized", 404, -69, null));
+        winnerList.add(new Winners("You are not authorized", 404, -69, null, 0));
         return winnerList;
 
 

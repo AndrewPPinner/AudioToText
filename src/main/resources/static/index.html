@@ -36,16 +36,16 @@
 
 <div>
     <h2 id="today-winner-title">Today's Winners: </h2>
-    <h3 v-if="winners.length === 0" id="no-winner" style="color:rgb(245, 121, 105)">No winners yet!</h2>
+    <h3 v-if="winners.length === 0" id="no-winner" style="color:rgb(245, 121, 105)">No winners today!</h2>
     <h3 id="winning-count" style="color:rgb(113, 218, 52)">Winning count TBD</h2>
     <br>
-    <div v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div  v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">{{ winner.name }}</div>
         <img v-if="winner.profilePicture != null" class="card-img-top" src="winner.profilePicture" alt="Card image cap">
         <img v-if="winner.profilePicture == null" class="card-img-top" :src="'https://avatars.dicebear.com/api/adventurer-neutral/:' + winner.name + '.svg'" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{'Winning Bet: ' + winner.bet }}</h5>
-            <p class="card-text">{{winner.name + ' has won ' }} {{winner.times_won + ' times'}}</p>
+            <p class="card-text">{{winner.name + ' has won ' }} {{winner.timesWon + ' times'}}</p>
         </div>
     </div>
 </div>

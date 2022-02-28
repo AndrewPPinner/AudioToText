@@ -5,13 +5,23 @@ public class Winners {
     private int bet;
     private int winningBet;
     private String profilePic;
+    private int timesWon;
 
 
-    Winners(String name, int bet, int winningBet, String profilePic) {
+    Winners(String name, Integer bet, int winningBet, String profilePic, Integer timesWon) {
         this.name = name;
-        this.bet = bet;
+        if (bet == null) {
+            this.bet = 0;
+        } else {
+            this.bet = Integer.parseInt(String.valueOf(bet));
+        }
         this.winningBet = winningBet;
         this.profilePic = profilePic;
+        if (timesWon == null) {
+            this.timesWon = 0;
+        } else {
+            this.timesWon = Integer.parseInt(String.valueOf(timesWon));
+        }
     }
 
 
@@ -29,5 +39,9 @@ public class Winners {
 
     public String getProfilePic() {
         return profilePic;
+    }
+
+    public int getTimesWon() {
+        return timesWon;
     }
 }
