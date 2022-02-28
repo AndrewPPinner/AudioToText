@@ -1,16 +1,16 @@
---create Bettingdb
-CREATE DATABASE "BettingDB"
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'English_United States.1252'
-    LC_CTYPE = 'English_United States.1252'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
+-- --create Bettingdb
+-- CREATE DATABASE "BettingDB"
+--     WITH 
+--     OWNER = postgres
+--     ENCODING = 'UTF8'
+--     LC_COLLATE = 'English_United States.1252'
+--     LC_CTYPE = 'English_United States.1252'
+--     TABLESPACE = pg_default
+--     CONNECTION LIMIT = -1;
 
 DROP TABlE IF EXISTs public.daily_winner;
 DROP TABlE IF EXISTs public.password;
-DROP TABlE IF EXISTs public.users;
+DROP TABlE IF EXISTs public.users CASCADE;
 DROP TABlE IF EXISTs public.user_daily_bets;
 
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS public.users
     profile_picture text COLLATE pg_catalog."default",
     times_won integer NOT NULL DEFAULT 0,
     CONSTRAINT "Users_pkey" PRIMARY KEY (user_id)
-)
+);
 
 --create user_daily_bets
 CREATE TABLE IF NOT EXISTS public.user_daily_bets
