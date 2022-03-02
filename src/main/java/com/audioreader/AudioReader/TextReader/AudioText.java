@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.TextReader;
 
+import org.apache.poi.hssf.record.formula.functions.Int;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 
 
 public class AudioText {
-    private int counter;
     private String fileName;
     private File file;
     private List<String> topWordsList = new ArrayList<>();
@@ -29,7 +29,9 @@ public class AudioText {
 
     //moved logic for counting a single word from constructor to separate method
 
-    public void countSingleWord(String wordToCount) {
+    public TopWord countSingleWord(String wordToCount) {
+        int counter = 0;
+        Map<String, Integer> result = new HashMap<>();
         List<String> listWordsInDoc = new ArrayList<>();
         try (FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
             XWPFDocument document = new XWPFDocument(FileInputStream);
@@ -54,11 +56,11 @@ public class AudioText {
                     counter++;
                 }
             }
-            System.out.println(wordToCount + ": " + counter);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return new TopWord(wordToCount, counter);
     }
 
 

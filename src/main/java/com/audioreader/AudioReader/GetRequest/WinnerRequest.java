@@ -44,6 +44,9 @@ public class WinnerRequest {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                    winningBet = resultSet.getInt("winning_bet");
+                   if(winningBet == 0) {
+                       winningBet = -99;
+                   }
                 }
 
                 //retrieve users with bets matching the winning bet for given date

@@ -15,6 +15,12 @@ const app = Vue.createApp ({
             .catch(e => (console.log(e)))
 
         }
+    },
+    mounted() {
+    axios
+    .get("http://localhost:7070/word_of_the_day")
+    .then(res => (this.wordOfTheDay = res.data, console.log(res)))
+    .catch(e =>(console.log(e)))
     }
 })
 

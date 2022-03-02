@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.TextReader;
 
+import com.audioreader.AudioReader.GetRequest.GetWordOfTheDay;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Download;
 import com.microsoft.playwright.Page;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.nio.file.Paths;
+import java.util.Map;
 
 @RestController
 public class FileDownload {
@@ -26,12 +28,14 @@ public class FileDownload {
 //Is now downloaded when button on admin_page is pressed. Returns top word for Admin to make sure it is a viable word
     @GetMapping("/admin_page/update")
     public TopWord download() {
+        GetWordOfTheDay getWordOfTheDay = new GetWordOfTheDay();
         AudioText audioText = null;
         LocalDateTime now = LocalDateTime.now();
         Date sqlDate = Date.valueOf(LocalDate.now());
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM_dd_yyyy");
         String formatDateTime = now.format(format);
         File fileCheck = new File("docxFiles/" + formatDateTime + ".docx");
+        String wordToCount = getWordOfTheDay.getWordOfDay();
 
 //Checks if file exists for current date. If not will download it then get count
         if(!fileCheck.exists()){
@@ -68,9 +72,8 @@ public class FileDownload {
                 download.saveAs(path);
                 audioText = new AudioText(path.toString());
                 System.out.println("Download Complete");
-                String word = audioText.getTopWord().getWord();
-                int count = audioText.getTopWord().getCount();
-
+                String word = audioText.countSingleWord(wordToCount).getWord();
+                int count = audioText.countSingleWord(wordToCount).getCount();
                 SetWinningBet setWinningBet = new SetWinningBet(sqlDate, word, count);
                 setWinningBet.setWinningDailyBet();
             }
@@ -78,14 +81,14 @@ public class FileDownload {
         } else {
 //If file does exist just read file and get count
             audioText = new AudioText("docxFiles/" + formatDateTime + ".docx");
-            String word = audioText.getTopWord().getWord();
-            int count = audioText.getTopWord().getCount();
+            String word = audioText.countSingleWord(wordToCount).getWord();
+            int count = audioText.countSingleWord(wordToCount).getCount();
             SetWinningBet setWinningBet = new SetWinningBet(sqlDate, word, count);
             setWinningBet.setWinningDailyBet();
         }
 
 
-        return audioText.getTopWord();
+        return audioText.countSingleWord(wordToCount);
 
     }
 

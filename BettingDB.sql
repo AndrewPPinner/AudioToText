@@ -18,8 +18,9 @@ DROP TABlE IF EXISTs public.user_daily_bets;
 CREATE TABLE IF NOT EXISTS public.daily_winner
 (
     week_id integer NOT NULL,
-    winning_bet integer NOT NULL,
-    date date NOT NULL
+    winning_bet integer NULL,
+    date date NOT NULL,
+    word text NOT NULL
 )
 
 TABLESPACE pg_default;

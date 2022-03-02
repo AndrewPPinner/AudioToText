@@ -43,6 +43,20 @@
   <div style="margin-top: 10px" v-show="isLoading" class="spinner-border text-light" role="status">
   </div>
 </div>
+<div class="row d-flex justify-content-center align-items-center h-100">
+  <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+      <div class="card-body p-5 text-center">
+        <div class="mb-md-5 mt-md-4 pb-5">
+          <h2 class="fw-bold mb-2 text-uppercase">Set Word of the Day</h2>
+          <p v-show="wordOfTheDay != null">{{ 'The Word of the Day has already been set to "' + wordOfTheDay + '"' }}</p>
+          <div class="form-outline form-white mb-4">
+            <input @keyup.enter="setWord(word)" type="text" v-model="word" placeholder="Word of the Day" class="form-control form-control-lg" />
+          </div>
+          <button class="btn btn-outline-light btn-lg px-5" @click="setWord(word)" type="submit">Set Word</button>
+        </div>
+      </div>
+    </div>
 <script src="adminPage/admin_page.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
