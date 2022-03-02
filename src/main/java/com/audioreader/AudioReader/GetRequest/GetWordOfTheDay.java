@@ -15,8 +15,6 @@ public class GetWordOfTheDay {
         String dbPass = System.getenv("dbPass");
         String wordOfTheDay = "";
         try {
-            boolean userExists = false;
-            int numUsersAdded = 0;
             Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
             Statement statement = connection.createStatement();
             //get list of all previous users

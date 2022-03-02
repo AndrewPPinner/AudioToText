@@ -6,7 +6,7 @@ const app = Vue.createApp ({
         isLoading: false,
         word: null,
         wordPlaced: null,
-        wordOfTheDay: null
+        wordOfTheDay: ""
         }
     },
     methods: {

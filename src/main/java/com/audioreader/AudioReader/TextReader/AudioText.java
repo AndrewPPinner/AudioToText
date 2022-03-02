@@ -27,11 +27,10 @@ public class AudioText {
         this.file = new File(fileName);
     }
 
-    //moved logic for counting a single word from constructor to separate method
 
+//takes a word and looks for it then creates a new object of word: wordToCount, count: how many times the word was found
     public TopWord countSingleWord(String wordToCount) {
         int counter = 0;
-        Map<String, Integer> result = new HashMap<>();
         List<String> listWordsInDoc = new ArrayList<>();
         try (FileInputStream FileInputStream = new FileInputStream(file.getAbsolutePath());) {
             XWPFDocument document = new XWPFDocument(FileInputStream);
