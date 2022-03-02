@@ -6,7 +6,7 @@ const app = Vue.createApp ({
         }
     },
     mounted() {
-        axios("http://localhost:7070/daily_winner?id=123456789")
+        axios("https://andrew-pinner.asuscomm.com/audio_text/daily_winner?id=123456789")
             .then(res => {
             if(res.data[0].name != null){
             this.winners = res.data;

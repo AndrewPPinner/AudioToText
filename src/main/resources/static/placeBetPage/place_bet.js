@@ -10,7 +10,7 @@ const app = Vue.createApp ({
     methods: {
         placeBet(fullName, bet) {
             const postArray = [fullName, bet]
-            axios.post("http://localhost:7070/daily_bet", postArray)
+            axios.post("https://andrew-pinner.asuscomm.com/audio_text/daily_bet", postArray)
             .then(res => (this.placed = res.data))
             .catch(e => (console.log(e)))
 
@@ -18,7 +18,7 @@ const app = Vue.createApp ({
     },
     mounted() {
     axios
-    .get("http://localhost:7070/word_of_the_day")
+    .get("https://andrew-pinner.asuscomm.com/audio_text/word_of_the_day")
     .then(res => (this.wordOfTheDay = res.data, console.log(res)))
     .catch(e =>(console.log(e)))
     }
