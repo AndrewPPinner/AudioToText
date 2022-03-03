@@ -22,7 +22,7 @@ const app = Vue.createApp ({
            const wordMap = {"word": word}
             axios
             .post("http://localhost:7070/admin_page/set_daily_word", wordMap)
-            .then(res => (this.wordPlaced = true, this.wordOfTheDay=word))
+            .then(res => (this.wordPlaced = true, this.wordOfTheDay= word))
             .catch(e => (console.log(e), this.wordPlaced = false))
            }
        },
