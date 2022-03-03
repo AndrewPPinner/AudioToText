@@ -35,7 +35,7 @@ public class FileDownload {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM_dd_yyyy");
         String formatDateTime = now.format(format);
         File fileCheck = new File("docxFiles/" + formatDateTime + ".docx");
-        String wordToCount = getWordOfTheDay.getWordOfDay();
+        String wordToCount = getWordOfTheDay.getWordOfPreviousDay();
 
 //Checks if file exists for current date. If not will download it then get count
         if(!fileCheck.exists()){
