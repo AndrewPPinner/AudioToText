@@ -25,7 +25,7 @@ public class WinnerRequest {
             //create sql formatted date object for previous betting day
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formatDateTime = BettingDate.previousBettingDay().format(format);
-            Date date = Date.valueOf(formatDateTime);
+            Date previousBettingDate = Date.valueOf(formatDateTime);
 
             //log into sql database
             String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
@@ -39,7 +39,7 @@ public class WinnerRequest {
                 Statement statement = connection.createStatement();
                 String sqlStatement = "SELECT winning_bet FROM daily_winner WHERE date = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-                preparedStatement.setDate(1, date);
+                preparedStatement.setDate(1, previousBettingDate);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                    winningBet = resultSet.getInt("winning_bet");
@@ -48,11 +48,11 @@ public class WinnerRequest {
                    }
                 }
 
-                //retrieve users with bets matching the winning bet for given date
-                sqlStatement = "SELECT full_name, profile_picture, bet, times_won FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet = ? AND date = ?;";
+                //retrieve users with bets equal to or less than the correct count in order and save to list (closest to correct count @ index 0)
+                sqlStatement = "SELECT full_name, profile_picture, bet, times_won FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet <= ? AND date = ? ORDER BY bet DESC;";
                 preparedStatement = connection.prepareStatement(sqlStatement);
                 preparedStatement.setInt(1, winningBet);
-                preparedStatement.setDate(2, date);
+                preparedStatement.setDate(2, previousBettingDate);
                 resultSet = preparedStatement.executeQuery();
 
                 //add winners to list of winners

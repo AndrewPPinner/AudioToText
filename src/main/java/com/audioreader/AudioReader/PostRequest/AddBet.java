@@ -21,18 +21,9 @@ public class AddBet {
 //This should be a post request
     @PostMapping("/daily_bet")
     public String addBet(@RequestBody List<String> parameters) {
-//        //date logic - switch betting date to next day after 09:00 every day
-//        //don't allow bets to be set until a word has entered in daily_winner for the betting period
-//        LocalDate currentBettingDate = LocalDate.now();
-//
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-//        LocalDate localDateToday = LocalDate.now();
-//        Timestamp todayNineAM = Timestamp.valueOf(dtf.format(localDateToday)+" 09:00:00");
-//        Timestamp todayNow = new Timestamp(System.currentTimeMillis());
-//        //if it is after 9:00 am set current betting date to tomorrow
-//        if(todayNow.after(todayNineAM)){
-//            currentBettingDate = localDateToday.plusDays(1);
-//        }
+
+        //date logic - switch betting date to next day after 09:00 every day
+        //don't allow bets to be set until a word has entered in daily_winner for the betting period
 
 
         //domain.com/user_betting?parameters=<username>,<bet>
