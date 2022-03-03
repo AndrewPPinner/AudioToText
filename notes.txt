@@ -1,0 +1,11 @@
+3/2/2022
+    betting for tomorrow's word is open from noon today until 9am tomorrow
+        do this logic in java
+            Date betDay = timestamp.today at 9:00 am (before 9 am is still considered yesterday)
+
+            -check if word is set for (betDay)
+                *if word is not set, don't allow bets to be made
+            -word is set for (betDay)
+                -create/update (betday)
+
+

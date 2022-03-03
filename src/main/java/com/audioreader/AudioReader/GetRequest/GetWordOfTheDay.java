@@ -13,12 +13,15 @@ public class GetWordOfTheDay {
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
         String dbUser = System.getenv("dbUser");
         String dbPass = System.getenv("dbPass");
-        String wordOfTheDay = "";
+        String wordOfTheDay = "404";
         try {
             Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
             Statement statement = connection.createStatement();
-            //get list of all previous users
-            ResultSet resultSet = statement.executeQuery("SELECT word FROM daily_winner WHERE date = current_date");
+
+            String sqlStatement = "SELECT word FROM daily_winner WHERE date = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setDate(1, Date.valueOf(BettingDate.current()));
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 wordOfTheDay = resultSet.getString("word");
             }

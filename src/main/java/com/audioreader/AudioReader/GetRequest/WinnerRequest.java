@@ -22,10 +22,9 @@ public class WinnerRequest {
         winnerList = new ArrayList<>();
         if (id.equals("123456789")) {
 
-            //create sql formatted date object for today
-            LocalDateTime now = LocalDateTime.now();
+            //create sql formatted date object for previous betting day
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formatDateTime = now.format(format);
+            String formatDateTime = BettingDate.previousBettingDay().format(format);
             Date date = Date.valueOf(formatDateTime);
 
             //log into sql database
