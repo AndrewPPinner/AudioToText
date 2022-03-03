@@ -19,7 +19,7 @@ public class WinnerRequest {
     //returns the winners for previous betting day
     @GetMapping("/daily_winner")
     public List<Winners> dailyWinners(@RequestParam(value = "id") String id) {
-        List<Winners> qualifiedBetUsers = dailyQualifyingWinners("123456789");
+        List<Winners> qualifiedBetUsers = dailyQualifyingWinners(id);
         List<Winners> actualWinners = new ArrayList<>();
         //start with bestGuess being the correct count
         int bestGuess = correctCount();
