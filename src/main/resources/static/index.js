@@ -33,5 +33,5 @@ today = mm + '/' + dd;
 console.log(today);
 console.log(winningCount);
 $(document).ready(function(event){ 
-    $("#today-winner-title").text("Winners " + today + ":");
+    $("#today-winner-title").text("Results for Java lecture on " + today + ":");
   });

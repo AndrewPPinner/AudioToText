@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.PostRequest;
 
+import com.audioreader.AudioReader.GetRequest.BettingDate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,18 +24,20 @@ public class SetWordOfDay {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM daily_winner");
             boolean exist = false;
             while (resultSet.next()) {
-                if (resultSet.getDate("date").toLocalDate().equals(LocalDate.now())) {
+                if (resultSet.getDate("date").toLocalDate().equals(BettingDate.current())) {
                     exist = true;
-                    String sqlStatement = "UPDATE daily_winner SET word = ? WHERE date = current_date;";
+                    String sqlStatement = "UPDATE daily_winner SET word = ? WHERE date = ?;";
                     PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
                     preparedStatement.setString(1, wordOfTheDay.get("word"));
+                    preparedStatement.setDate(2, Date.valueOf(BettingDate.current()));
                     preparedStatement.executeUpdate();
                 }
             }
             if(!exist) {
-                String sqlStatement = "INSERT INTO daily_winner (week_id, word, date) VALUES (1, ?, current_date);";
+                String sqlStatement = "INSERT INTO daily_winner (week_id, word, date) VALUES (1, ?, ?);";
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
                 preparedStatement.setString(1, wordOfTheDay.get("word"));
+                preparedStatement.setDate(2, Date.valueOf(BettingDate.current()));
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {

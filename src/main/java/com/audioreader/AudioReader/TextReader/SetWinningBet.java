@@ -1,6 +1,10 @@
 package com.audioreader.AudioReader.TextReader;
 
+import com.audioreader.AudioReader.GetRequest.WinnerRequest;
+import com.audioreader.AudioReader.GetRequest.Winners;
+
 import java.sql.*;
+import java.util.List;
 
 public class SetWinningBet {
     private Date date;
@@ -15,6 +19,7 @@ public class SetWinningBet {
 
 
     public void setWinningDailyBet() {
+        WinnerRequest winnerRequest = new WinnerRequest();
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
         String dbUser = System.getenv("dbUser");
         String dbPass = System.getenv("dbPass");
@@ -42,11 +47,15 @@ public class SetWinningBet {
             }
 
 //updates everyone's times won with the correct winning bet to +1
-            String sqlStatement = "UPDATE users SET times_won = times_won + 1 WHERE user_id IN (SELECT user_id FROM user_daily_bets WHERE user_daily_bets.bet = ? AND date = ?);";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-            preparedStatement.setInt(1, count);
-            preparedStatement.setDate(2, date);
-            int rowsChanged = preparedStatement.executeUpdate();
+            List<Winners> winnersList = winnerRequest.dailyWinners("123456789");
+            for (Winners winner : winnersList) {
+                String sqlStatement = "UPDATE users SET times_won = times_won + 1 WHERE full_name = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+                preparedStatement.setString(1, winner.getName());
+                int rowsChanged = preparedStatement.executeUpdate();
+            }
+
+
 
             connection.close();
         } catch (SQLException e) {

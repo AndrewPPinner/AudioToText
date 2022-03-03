@@ -43,20 +43,23 @@
 
                             <div class="mb-md-5 mt-md-4 pb-5">
 
-                                <h2 class="fw-bold mb-2 text-uppercase">Place your Bet</h2>
-
-                                <p v-show="wordOfTheDay != null"> {{ 'How many times is "' + wordOfTheDay + '" going to be said?' }}</p>
-                                <p>Please be sure to use the same name when placing and updating bets</p>
+                                <h2 class="fw-bold mb-2 text-uppercase" style="padding-bottom: 1em;">Place your Bet</h2>
+                                <p v-show="wordOfTheDay != 404"> {{ 'How many times is the word "' + wordOfTheDay + '" going to be said during Java lecture on ' + bettingDate  }}</p>
+                                
+                                <div v-show="wordOfTheDay != 404">
                                 <div class="form-outline form-white mb-4">
                                     <input  type="text" v-model="fullName" placeholder="Name" class="form-control form-control-lg" />
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    <input @keyup.enter="placeBet(fullName, bet)" type="text" v-model="bet" placeholder="Bet" class="form-control form-control-lg" />
+                                    <input @keyup.enter="placeBet(fullName, bet)" type="text" v-model="bet" placeholder="Bet" class="form-control form-control-lg" style="padding-bottom: 1em"/>
 
                                 </div>
-
-                                <button class="btn btn-outline-light btn-lg px-5" @click="placeBet(fullName, bet)" type="submit">Place Bet</button>
+                                <p>Please be sure to use the same name when placing and updating bets</p>
+                                <button v-show="wordOfTheDay != 404" class="btn btn-outline-light btn-lg px-5" @click="placeBet(fullName, bet)" type="submit">Place Bet</button>
+                            </div>
+                                <p v-show="wordOfTheDay === 404" style = "color:red"> {{ 'Word has not been picked yet for ' + bettingDate }}</p>
+                                <p v-show="wordOfTheDay === 404"> Please come back later!</p>
                                 <div>
                                     <p v-if="placed != null" class="mb-0">{{ placed }}</p>
                                 </div>

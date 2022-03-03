@@ -4,6 +4,7 @@ const app = Vue.createApp ({
         fullName: "",
         bet: null,
         wordOfTheDay: null,
+        bettingDate: null,
         placed: null
         }
     },
@@ -20,8 +21,16 @@ const app = Vue.createApp ({
     axios
     .get("https://andrew-pinner.asuscomm.com/audio_text/word_of_the_day")
     .then(res => (this.wordOfTheDay = res.data, console.log(res)))
+    .catch(e =>(console.log(e)));
+    axios
+    .get("http://localhost:7070/betting_day")
+    .then(res => (this.bettingDate = res.data, console.log(res)))
     .catch(e =>(console.log(e)))
+    
+    
     }
+    
+    
 })
 
 app.mount("#app")

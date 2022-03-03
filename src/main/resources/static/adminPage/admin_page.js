@@ -6,7 +6,8 @@ const app = Vue.createApp ({
         isLoading: false,
         word: null,
         wordPlaced: null,
-        wordOfTheDay: ""
+        wordOfTheDay: "",
+        bettingDate: null
         }
     },
     methods: {
@@ -21,7 +22,7 @@ const app = Vue.createApp ({
            const wordMap = {"word": word}
             axios
             .post("https://andrew-pinner.asuscomm.com/audio_text/admin_page/set_daily_word", wordMap)
-            .then(res => (this.wordPlaced = true))
+            .then(res => (this.wordPlaced = true, this.wordOfTheDay= word))
             .catch(e => (console.log(e), this.wordPlaced = false))
            }
        },
@@ -29,7 +30,11 @@ const app = Vue.createApp ({
        axios
        .get("https://andrew-pinner.asuscomm.com/audio_text/word_of_the_day")
        .then(res =>(this.wordOfTheDay = res.data))
-       .catch(e => (console.log(e)))
+       .catch(e => (console.log(e)));
+       axios
+       .get("https://andrew-pinner.asuscomm.com/audio_text/betting_day")
+       .then(res => (this.bettingDate = res.data, console.log(res)))
+       .catch(e =>(console.log(e)))
        }
 })
 
