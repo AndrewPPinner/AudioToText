@@ -3,6 +3,7 @@ package com.audioreader.AudioReader.GetRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +39,20 @@ public class BettingDate {
     public static String toStringFormat(){
         DateTimeFormatter ddtf = DateTimeFormatter.ofPattern("MM-dd-uuuu");
         return ddtf.format(current());
+    }
+
+    public static Date sqlPreviousBettingDate() {
+        //create sql formatted date object for previous betting day
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatDateTime = BettingDate.previousBettingDay().format(format);
+        return Date.valueOf(formatDateTime);
+    }
+
+    public static Date sqlCurrentBettingDate() {
+        //create sql formatted date object for previous betting day
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formatDateTime = BettingDate.current().format(format);
+        return Date.valueOf(formatDateTime);
     }
 
     public static LocalDate previousBettingDay(){
