@@ -102,7 +102,6 @@ public class WinnerRequest {
             String sqlStatement = "SELECT winning_bet FROM daily_winner WHERE date = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setDate(1, BettingDate.sqlPreviousBettingDate());
-            System.out.println(BettingDate.sqlPreviousBettingDate());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 winningBet = resultSet.getInt("winning_bet");
@@ -115,7 +114,6 @@ public class WinnerRequest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(winningBet);
         return winningBet;
     }
 
