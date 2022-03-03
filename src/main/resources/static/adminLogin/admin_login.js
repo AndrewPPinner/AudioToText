@@ -9,11 +9,11 @@ const app = Vue.createApp ({
            redirect(login,password) {
            const loginCreds = [login, password]
                axios
-               .post("http://localhost:7070/login_creds", loginCreds)
+               .post("https://andrew-pinner.asuscomm.com/audio_text/login_creds", loginCreds)
                .then(response => {
                console.log(response)
                if(response.data.valid = true) {
-               window.open("http://localhost:7070/admin_page?key=" + response.data.url)
+               window.open("https://andrew-pinner.asuscomm.com/audio_text/admin_page?key=" + response.data.url)
                } else {
                console.log("no")
                }
