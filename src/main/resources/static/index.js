@@ -2,7 +2,8 @@ var winningCount;
 const app = Vue.createApp ({
     data() {
         return {
-        winners: ""
+        winners: "",
+        previous_word_of_the_day: ""
         }
     },
     mounted() {
@@ -18,6 +19,9 @@ const app = Vue.createApp ({
             console.log(winningCount)
             $("#winning-count").text("The correct count was " + winningCount);
             })
+            .catch(e => (console.log(e)));
+        axios("https://andrew-pinner.asuscomm.com/audio_text/previous_word_of_the_day")
+            .then(res => (this.previous_word_of_the_day = res.data))
             .catch(e => (console.log(e)))
     }
 })

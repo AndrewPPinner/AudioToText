@@ -136,6 +136,7 @@ public class AudioText {
             if (!(wordSplit[0].equals("the") || wordSplit[0].equals("you") || wordSplit[0].equals("and") || wordSplit[0].equals("that") || wordSplit[0].equals("this") || wordSplit[0].equals("have") || wordSplit[0].equals("going") || wordSplit[0].equals("i'm") || wordSplit[0].equals("it's") || wordSplit[0].equals("what") || wordSplit[0].equals("but"))) {
 //                System.out.println((i + 1) + "): " + word);
                 topWordsList.add(word);
+                System.out.println(word);
                 i++;
             }
 

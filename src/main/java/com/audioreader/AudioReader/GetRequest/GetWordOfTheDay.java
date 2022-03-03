@@ -33,6 +33,7 @@ public class GetWordOfTheDay {
         return wordOfTheDay;
     }
 
+    @GetMapping("/previous_word_of_the_day")
     public String getWordOfPreviousDay() {
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
         String dbUser = System.getenv("dbUser");

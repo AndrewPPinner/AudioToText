@@ -3,6 +3,7 @@ package com.audioreader.AudioReader.PostRequest;
 
 import com.audioreader.AudioReader.GetRequest.BettingDate;
 import org.apache.tomcat.jni.Local;
+import org.springframework.util.NumberUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
@@ -24,6 +25,17 @@ public class AddBet {
 
         //date logic - switch betting date to next day after 09:00 every day
         //don't allow bets to be set until a word has entered in daily_winner for the betting period
+
+        if(parameters.get(0).isBlank()) {
+            return "Name can not be left blank.";
+        }
+        if(parameters.get(1).isBlank()) {
+            return  "Bet can not be left blank.";
+        }
+        if (!parameters.get(1).matches("-?\\d+(\\.\\d+)?")) {
+            return "Please enter a valid number";
+        }
+
 
 
         //domain.com/user_betting?parameters=<username>,<bet>
