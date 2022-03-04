@@ -40,6 +40,7 @@ public class SetWordOfDay {
                 preparedStatement.setDate(2, Date.valueOf(BettingDate.current()));
                 preparedStatement.executeUpdate();
             }
+            connection.close();
         } catch (SQLException e) {
 
         }

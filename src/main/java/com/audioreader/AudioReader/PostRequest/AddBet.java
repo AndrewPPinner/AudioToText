@@ -54,6 +54,7 @@ public class AddBet {
             preparedStatement.setDate(1, Date.valueOf(BettingDate.current()));
             ResultSet bettingDateBets = preparedStatement.executeQuery();
             if(!bettingDateBets.next()){
+                connection.close();
                 return "Sorry, the word has not been chosen for " + BettingDate.toStringFormat() + " Please try again later.";
             }
 
@@ -76,6 +77,7 @@ public class AddBet {
                     //if user has a bet recorded for current day, update the bet
                     if (matchingBetSet.next()) {
                         int numBetsUpdated = updateBet(parameters.get(0), Integer.parseInt(parameters.get(1)), BettingDate.current());
+                        connection.close();
                         return "Your bet has been updated! (" + numBetsUpdated + ") bets updated.";
                     }
                 }
@@ -133,7 +135,7 @@ public class AddBet {
             preparedStatement.setString(2, fullName);
             preparedStatement.setDate(3, Date.valueOf(currentBettingDate));
             betsUpdated = preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

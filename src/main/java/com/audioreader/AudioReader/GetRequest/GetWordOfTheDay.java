@@ -25,7 +25,7 @@ public class GetWordOfTheDay {
             while(resultSet.next()) {
                 wordOfTheDay = resultSet.getString("word");
             }
-
+            connection.close();
         } catch (SQLException e) {
 
         }
@@ -50,7 +50,7 @@ public class GetWordOfTheDay {
             while(resultSet.next()) {
                 wordOfTheDay = resultSet.getString("word");
             }
-
+            connection.close();
         } catch (SQLException e) {
 
         }

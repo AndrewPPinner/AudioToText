@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Welcome</title>
+    <title>Leaderboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -35,22 +35,12 @@
 </nav>
 
 <div>
-    <h2 id="today-winner-title">Today's Winners: </h2>
-    <h3 v-if="winners.length === 0" id="no-winner" style="color:rgb(245, 121, 105)">No winners today!</h3>
-    <h3 id="winning-count" style="color:rgb(113, 218, 52)">Winning count TBD</h3>
-    <h3 v-show="previous_word_of_the_day != '' " >{{ 'The word was: ' + previous_word_of_the_day }}</h3>
-    <br>
-    <div  v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">{{ winner.name }}</div>
-        <img v-if="winner.profilePicture != null" class="card-img-top" src="winner.profilePicture" alt="Card image cap">
-        <img v-if="winner.profilePicture == null" class="card-img-top" :src="'https://avatars.dicebear.com/api/adventurer-neutral/:' + winner.name + '.svg'" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{'Winning Bet: ' + winner.bet }}</h5>
-            <p class="card-text">{{winner.name + ' has won ' }} {{winner.timesWon + ' times'}}</p>
-        </div>
-    </div>
+    <ul style="margin-top: 2rem" v-show="leaders != null" class="list-group">
+        <li v-for:="leader in leaders" class="list-group-item"> {{ leader.name }} <br> {{ 'Wins: ' + leader.timesWon }}</li>
+    </ul>
+
 </div>
-<script src="index.js" async defer></script>
+<script src="leaderboardPage/leaderboard.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
