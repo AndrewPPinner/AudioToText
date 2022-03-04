@@ -27,10 +27,11 @@ public class Leaderboard {
             while (resultSet.next()) {
                 leaderboardList.add(new Winners(resultSet.getString("full_name"), null, 0, resultSet.getString("profile_picture"), resultSet.getInt("times_won")));
             }
+            connection.close();
         } catch (SQLException e) {
 
         }
-        connection.close();
+        
 
         return leaderboardList;
     }
