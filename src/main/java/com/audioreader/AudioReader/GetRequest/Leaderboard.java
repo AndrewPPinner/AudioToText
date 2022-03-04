@@ -30,6 +30,7 @@ public class Leaderboard {
         } catch (SQLException e) {
 
         }
+        connection.close()
 
         return leaderboardList;
     }
