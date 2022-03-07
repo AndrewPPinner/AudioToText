@@ -2,15 +2,11 @@ package com.audioreader.AudioReader.PostRequest;
 
 
 import com.audioreader.AudioReader.GetRequest.BettingDate;
-import org.apache.tomcat.jni.Local;
-import org.springframework.util.NumberUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class AddBet {
@@ -51,7 +47,7 @@ public class AddBet {
             //check to see if there is a word chosen for currentBettingDay
             String sql = "SELECT word FROM daily_winner WHERE date = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDate(1, Date.valueOf(BettingDate.current()));
+            preparedStatement.setDate(1, Date.valueOf(BettingDate.currentBettingDate()));
             ResultSet bettingDateBets = preparedStatement.executeQuery();
             if(!bettingDateBets.next()){
                 connection.close();
@@ -71,12 +67,12 @@ public class AddBet {
                     userExists = true;
                     String sqlStatement = "SELECT users.user_id, bet, date, full_name FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE date = ? AND full_name = ?;";
                     preparedStatement = connection.prepareStatement(sqlStatement);
-                    preparedStatement.setDate(1, Date.valueOf(BettingDate.current()));
+                    preparedStatement.setDate(1, Date.valueOf(BettingDate.currentBettingDate()));
                     preparedStatement.setString(2, parameters.get(0));
                     ResultSet matchingBetSet = preparedStatement.executeQuery();
                     //if user has a bet recorded for current day, update the bet
                     if (matchingBetSet.next()) {
-                        int numBetsUpdated = updateBet(parameters.get(0), Integer.parseInt(parameters.get(1)), BettingDate.current());
+                        int numBetsUpdated = updateBet(parameters.get(0), Integer.parseInt(parameters.get(1)), BettingDate.currentBettingDate());
                         connection.close();
                         return "Your bet has been updated! (" + numBetsUpdated + ") bets updated.";
                     }
@@ -97,7 +93,7 @@ public class AddBet {
             preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, parameters.get(0));
             preparedStatement.setInt(2, Integer.parseInt(parameters.get(1)));
-            preparedStatement.setDate(3, Date.valueOf(BettingDate.current()));
+            preparedStatement.setDate(3, Date.valueOf(BettingDate.currentBettingDate()));
             int numBetsAdded = preparedStatement.executeUpdate();
 
 //      from older version of method

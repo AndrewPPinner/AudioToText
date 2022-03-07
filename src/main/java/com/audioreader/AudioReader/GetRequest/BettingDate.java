@@ -10,14 +10,12 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 public class BettingDate {
-    private static LocalDate currentBettingDate = LocalDate.now();
     private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-    private static LocalDate localDateToday = LocalDate.now();
-    private static Timestamp todayNineAM = Timestamp.valueOf(dtf.format(localDateToday)+" 09:00:00");
-    private static Timestamp todayNow = new Timestamp(System.currentTimeMillis());
 
-
-    public static boolean afterNineAM(){
+    public static boolean isAfterNineAM(){
+        LocalDate localDateToday = LocalDate.now();
+        Timestamp todayNineAM = Timestamp.valueOf(dtf.format(localDateToday)+" 09:00:00");
+        Timestamp todayNow = new Timestamp(System.currentTimeMillis());
         return todayNow.after(todayNineAM);
     }
 
@@ -26,8 +24,10 @@ public class BettingDate {
      * @return Returns the current betting date as a LoaclDate object.
      * current betting date is Today BEFORE 9:00AM and Tomorrow AFTER 9:00AM
      */
-    public static LocalDate current(){
-        if(afterNineAM()){
+    public static LocalDate currentBettingDate(){
+
+        LocalDate localDateToday = LocalDate.now();
+        if(isAfterNineAM()){
             return localDateToday.plusDays(1);
         }
         else return localDateToday;
@@ -38,25 +38,25 @@ public class BettingDate {
     @GetMapping("/betting_day")
     public static String toStringFormat(){
         DateTimeFormatter ddtf = DateTimeFormatter.ofPattern("MM-dd-uuuu");
-        return ddtf.format(current());
+        return ddtf.format(currentBettingDate());
     }
 
     public static Date sqlPreviousBettingDate() {
         //create sql formatted date object for previous betting day
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formatDateTime = BettingDate.previousBettingDay().format(format);
+        String formatDateTime = BettingDate.previousBettingDate().format(format);
         return Date.valueOf(formatDateTime);
     }
 
     public static Date sqlCurrentBettingDate() {
         //create sql formatted date object for previous betting day
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formatDateTime = BettingDate.current().format(format);
+        String formatDateTime = BettingDate.currentBettingDate().format(format);
         return Date.valueOf(formatDateTime);
     }
 
-    public static LocalDate previousBettingDay(){
-        return current().minusDays(1);
+    public static LocalDate previousBettingDate(){
+        return currentBettingDate().minusDays(1);
     }
 
 

@@ -20,7 +20,7 @@ public class GetWordOfTheDay {
 
             String sqlStatement = "SELECT word FROM daily_winner WHERE date = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-            preparedStatement.setDate(1, Date.valueOf(BettingDate.current()));
+            preparedStatement.setDate(1, Date.valueOf(BettingDate.currentBettingDate()));
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 wordOfTheDay = resultSet.getString("word");
