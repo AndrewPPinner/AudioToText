@@ -38,7 +38,7 @@
     <h2 id="today-winner-title">Today's Winners: </h2>
     <h3 v-if="winners.length === 0" id="no-winner" style="color:rgb(245, 121, 105)">No winners today!</h3>
     <h3 id="winning-count" style="color:rgb(113, 218, 52)">Winning count TBD</h3>
-    <h3 v-show="previous_word_of_the_day != '' " >{{ 'The word was: ' + previous_word_of_the_day }}</h3>
+    <h3 v-show="previous_word_of_the_day != 404 " >{{ 'The word was: ' + previous_word_of_the_day }}</h3>
     <br>
     <div  v-for="winner in winners" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">{{ winner.name }}</div>

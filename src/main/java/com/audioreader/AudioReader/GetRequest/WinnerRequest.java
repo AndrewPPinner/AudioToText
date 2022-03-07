@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.GetRequest;
 
+import com.audioreader.AudioReader.SQLRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,27 +44,19 @@ public class WinnerRequest {
     }
 
 
-
     //returns a list of users with bets less than or equal to the correctCount()
     public List<Winners> dailyQualifyingWinners(@RequestParam(value = "id") String id) {
         winnerList = new ArrayList<>();
+        SQLRequest sqlRequest = new SQLRequest();
         if (id.equals("123456789")) {
 
-            //log into sql database
-            String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-            String dbUser = System.getenv("dbUser");
-            String dbPass = System.getenv("dbPass");
             try {
-                //retrieve users with bets equal to or less than the correctCount() in order and save to list (closest to correct count @ index 0)
-                Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
-                Statement statement = connection.createStatement();
+                Connection connection = sqlRequest.getConnection();
                 String sqlStatement = "SELECT full_name, profile_picture, bet, times_won FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet <= ? AND date = ? ORDER BY bet DESC;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
                 preparedStatement.setInt(1, correctCount());
                 preparedStatement.setDate(2, BettingDate.sqlPreviousBettingDate());
                 ResultSet resultSet = preparedStatement.executeQuery();
-
-                //add winners to list of winners
                 if (resultSet.next()) {
                     do {
                         winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("bet"), correctCount(), resultSet.getString("profile_picture"), resultSet.getInt("times_won")));
@@ -72,11 +65,39 @@ public class WinnerRequest {
                 } else {
                     winnerList.add(new Winners(null, null, correctCount(), null, null));
                 }
-
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+
             }
+
+            //log into sql database
+//            String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
+//            String dbUser = System.getenv("dbUser");
+//            String dbPass = System.getenv("dbPass");
+//            try {
+//                //retrieve users with bets equal to or less than the correctCount() in order and save to list (closest to correct count @ index 0)
+//                Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+//                Statement statement = connection.createStatement();
+//                String sqlStatement = "SELECT full_name, profile_picture, bet, times_won FROM user_daily_bets JOIN users on user_daily_bets.user_id = users.user_id WHERE user_daily_bets.bet <= ? AND date = ? ORDER BY bet DESC;";
+//                PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+//                preparedStatement.setInt(1, correctCount());
+//                preparedStatement.setDate(2, BettingDate.sqlPreviousBettingDate());
+//                ResultSet resultSet = preparedStatement.executeQuery();
+//
+//                //add winners to list of winners
+//                if (resultSet.next()) {
+//                    do {
+//                        winnerList.add(new Winners(resultSet.getString("full_name"), resultSet.getInt("bet"), correctCount(), resultSet.getString("profile_picture"), resultSet.getInt("times_won")));
+//                    } while (resultSet.next());
+//                } else if (correctCount() == -99) {
+//                } else {
+//                    winnerList.add(new Winners(null, null, correctCount(), null, null));
+//                }
+//
+//                connection.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
             return winnerList;
         }
 
@@ -86,17 +107,13 @@ public class WinnerRequest {
     }
 
 
-
     //returns correct count for previous betting day
     public int correctCount() {
         //log into sql database
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
+        SQLRequest sqlRequest = new SQLRequest();
         int winningBet = -99;
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
-
+            Connection connection = sqlRequest.getConnection();
             //retrieve winning bet for given date (date variable)
             Statement statement = connection.createStatement();
             String sqlStatement = "SELECT winning_bet FROM daily_winner WHERE date = ?;";
@@ -109,7 +126,6 @@ public class WinnerRequest {
                     winningBet = -99;
                 }
             }
-
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

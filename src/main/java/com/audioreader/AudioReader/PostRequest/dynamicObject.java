@@ -1,5 +1,7 @@
 package com.audioreader.AudioReader.PostRequest;
 
+import com.audioreader.AudioReader.SQLRequest;
+
 import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.Random;
@@ -15,6 +17,7 @@ public class dynamicObject {
     }
 
     private void generateUrl() {
+        SQLRequest sqlRequest = new SQLRequest();
 
         //generating randomized endpoint
         int leftLimit = 97; // letter 'a'
@@ -30,12 +33,8 @@ public class dynamicObject {
         String generatedString = buffer.toString();
         this.url = generatedString;
 
-        //passing the randomized endpoint to the db
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             String sqlStatement = "UPDATE password SET pass = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, url);

@@ -2,6 +2,7 @@ package com.audioreader.AudioReader.PostRequest;
 
 
 import com.audioreader.AudioReader.GetRequest.BettingDate;
+import com.audioreader.AudioReader.SQLRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
@@ -18,6 +19,7 @@ public class AddBet {
 //This should be a post request
     @PostMapping("/daily_bet")
     public String addBet(@RequestBody List<String> parameters) {
+        SQLRequest sqlRequest = new SQLRequest();
 
         //date logic - switch betting date to next day after 09:00 every day
         //don't allow bets to be set until a word has entered in daily_winner for the betting period
@@ -35,13 +37,10 @@ public class AddBet {
 
 
         //domain.com/user_betting?parameters=<username>,<bet>
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
         try {
             boolean userExists = false;
             int numUsersAdded = 0;
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             Statement statement = connection.createStatement();
 
             //check to see if there is a word chosen for currentBettingDay
@@ -118,13 +117,14 @@ public class AddBet {
     //update bet for an existing user(only accessed through addBet which checks user/bet exist already)
     // checks on currentBettingDate (date passed as method argument because otherwise out of scope from addBets)
     public int updateBet(String fullName, int bet, LocalDate currentBettingDate) {
+        SQLRequest sqlRequest = new SQLRequest();
         System.out.println("updating bet");
         String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
         String dbUser = System.getenv("dbUser");
         String dbPass = System.getenv("dbPass");
         int betsUpdated = 0;
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             String sqlStatement = "UPDATE user_daily_bets SET bet = ? where user_id = (SELECT user_id FROM users WHERE full_name = ?) and date = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1, bet);

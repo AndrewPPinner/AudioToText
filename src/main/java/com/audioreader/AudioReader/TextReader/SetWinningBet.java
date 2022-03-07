@@ -2,6 +2,7 @@ package com.audioreader.AudioReader.TextReader;
 
 import com.audioreader.AudioReader.GetRequest.WinnerRequest;
 import com.audioreader.AudioReader.GetRequest.Winners;
+import com.audioreader.AudioReader.SQLRequest;
 
 import java.sql.*;
 import java.util.List;
@@ -20,13 +21,11 @@ public class SetWinningBet {
 
     public void setWinningDailyBet() {
         WinnerRequest winnerRequest = new WinnerRequest();
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
+        SQLRequest sqlRequest = new SQLRequest();
         try {
 //checks if there is already a winning bet for the date. If so update it, if not insert a new one. (This is mostly for the time being while we manually update it, so we don't break the db)
 //week 1 is currently hard coded and needs logic built to see what week we are in
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM daily_winner");
 

@@ -1,6 +1,7 @@
 package com.audioreader.AudioReader.PostRequest;
 
 import com.audioreader.AudioReader.GetRequest.BettingDate;
+import com.audioreader.AudioReader.SQLRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +14,10 @@ public class SetWordOfDay {
 
     @PostMapping("admin_page/set_daily_word")
     public void setWordOfTheDay(@RequestBody Map<String, String> wordOfTheDay) {
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
+        SQLRequest sqlRequest = new SQLRequest();
 //Takes the word of the day and checks if a word for today is already in if so updates the word and if not inserts
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM daily_winner");
             boolean exist = false;

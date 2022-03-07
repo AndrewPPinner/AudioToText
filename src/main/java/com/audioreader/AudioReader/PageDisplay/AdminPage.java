@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.PageDisplay;
 
+import com.audioreader.AudioReader.SQLRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,15 +14,12 @@ public class AdminPage {
 
     @RequestMapping("/admin_page")
     public String adminPage(@RequestParam(value = "key") String key){
+        SQLRequest sqlRequest = new SQLRequest();
         //check if secure key from front-end is same as the one on the date base
 
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             Statement statement = connection.createStatement();
-
             ResultSet resultSet = statement.executeQuery("SELECT * FROM password");
             while(resultSet.next()){
                this.url = resultSet.getString("pass");

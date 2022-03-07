@@ -1,5 +1,6 @@
 package com.audioreader.AudioReader.GetRequest;
 
+import com.audioreader.AudioReader.SQLRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,12 +36,10 @@ public class GetWordOfTheDay {
 
     @GetMapping("/previous_word_of_the_day")
     public String getWordOfPreviousDay() {
-        String dbURL = "jdbc:postgresql://localhost:5432/BettingDB";
-        String dbUser = System.getenv("dbUser");
-        String dbPass = System.getenv("dbPass");
+        SQLRequest sqlRequest = new SQLRequest();
         String wordOfTheDay = "404";
         try {
-            Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            Connection connection = sqlRequest.getConnection();
             Statement statement = connection.createStatement();
 
             String sqlStatement = "SELECT word FROM daily_winner WHERE date = ?;";
