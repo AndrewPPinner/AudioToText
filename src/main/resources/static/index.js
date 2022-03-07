@@ -13,17 +13,17 @@ const app = Vue.createApp ({
             if(res.data[0].name != null){
             this.winners = res.data;
             winningCount = res.data[0].winningBet;
-            if(winningCount != -99) {
-                axios("https://andrew-pinner.asuscomm.com/audio_text/all_bets")
-                .then(res => (this.allBets = res.data))
-                .catch(e => (console.log(e)))
-            }
             console.log(winningCount)
             $("#winning-count").text("The correct count was " + winningCount);
             }
             winningCount = res.data[0].winningBet;
             console.log(winningCount)
             $("#winning-count").text("The correct count was " + winningCount);
+            if(winningCount != -99) {
+                axios("https://andrew-pinner.asuscomm.com/audio_text/all_bets")
+                .then(res => (this.allBets = res.data))
+                .catch(e => (console.log(e)))
+            }
             })
             .catch(e => (console.log(e)));
         axios("https://andrew-pinner.asuscomm.com/audio_text/previous_word_of_the_day")
