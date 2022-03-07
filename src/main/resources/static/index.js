@@ -14,7 +14,9 @@ const app = Vue.createApp ({
             this.winners = res.data;
             winningCount = res.data[0].winningBet;
             if(winningCount != -99) {
-                getAllBets();
+                axios("https://andrew-pinner.asuscomm.com/audio_text/all_bets")
+                .then(res => (this.allBets = res.data))
+                .catch(e => (console.log(e)))
             }
             console.log(winningCount)
             $("#winning-count").text("The correct count was " + winningCount);
@@ -27,13 +29,6 @@ const app = Vue.createApp ({
         axios("https://andrew-pinner.asuscomm.com/audio_text/previous_word_of_the_day")
             .then(res => (this.previous_word_of_the_day = res.data))
             .catch(e => (console.log(e)))
-    },
-    methods: {
-            getAllBets() {
-                axios("https://andrew-pinner.asuscomm.com/audio_text/all_bets")
-                .then(res => (this.allBets = res.data))
-                .catch(e => (console.log(e)))
-            }
     }
 })
 
