@@ -34,6 +34,7 @@
 </nav>
 
 <div>
+    <img v-if="bet == 69" src="nice.gif">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -52,7 +53,6 @@
 
                                 <div class="form-outline form-white mb-4">
                                     <input @keyup.enter="placeBet(fullName, bet)" type="text" v-model="bet" placeholder="Bet" class="form-control form-control-lg" style="padding-bottom: 1em"/>
-
                                 </div>
                                 <p>Please be sure to use the same name when placing and updating bets</p>
                                 <button v-show="wordOfTheDay != 404" class="btn btn-outline-light btn-lg px-5" @click="placeBet(fullName, bet)" type="submit">Place Bet</button>
