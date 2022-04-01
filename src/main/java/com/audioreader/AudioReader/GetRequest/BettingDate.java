@@ -26,11 +26,12 @@ public class BettingDate {
      */
     public static LocalDate currentBettingDate(){
 
-        LocalDate localDateToday = LocalDate.now();
+//        LocalDate localDateToday = LocalDate.now();
         if(isAfterNineAM()){
-            return localDateToday.plusDays(1);
+//            return localDateToday.plusDays(1);
         }
-        else return localDateToday;
+//        else return localDateToday;
+        return LocalDate.of(2022, 3, 9);
     }
 
 
