@@ -10,3 +10,9 @@ displayed the number of times each user had one as well as created a leaderboard
 The live site is no longer used as we have all graduated but it is still hosted on a local server of mine frozen in time of one of our last lectures.
 
 [Live Site](https://andrew-pinner.asuscomm.com/audio_text/)
+
+<br/>
+
+<h2><b>Current Issues<b/></h2>
+
+- Dice Bear (The API used to generate avatars) has changed their endpoint format and is currently displaying default images for everyone.
